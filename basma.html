@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Pour Basma ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff758c, #ff7eb3, #fad0c4);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.card {
+    background: rgba(255,255,255,0.15);
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 30px rgba(0,0,0,0.3);
+    text-align: center;
+    max-width: 400px;
+}
+
+h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.photo {
+    width: 200px;
+    height: 200px;
+    border-radius: 15px;
+    object-fit: cover;
+    border: 3px solid white;
+    margin-bottom: 15px;
+}
+
+button {
+    background: white;
+    color: #ff4b7d;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #ff4b7d;
+    color: white;
+}
+
+#counter {
+    margin-top: 15px;
+    font-size: 18px;
+}
+
+.heart {
+    position: absolute;
+    color: red;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    from {
+        transform: translateY(-10vh);
+    }
+    to {
+        transform: translateY(110vh);
+    }
+}
+
+#bigHeart {
+    font-size: 60px;
+    display: none;
+    animation: beat 1s infinite;
+}
+
+@keyframes beat {
+    0%,100% { transform: scale(1);}
+    50% { transform: scale(1.3);}
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+
+    <h1>Basma ❤️</h1>
+
+    <!-- AJOUTE TA PHOTO ICI -->
+    <img src="BenasserBasma.jpg" class="photo" id="photo">
+
+    <p id="text">
+        Basma, tu es la plus belle chose dans ma vie ✨
+    </p>
+
+    <div id="counter"></div>
+
+    <button onclick="surprise()">Clique ici mon amour 💌</button>
+
+    <div id="bigHeart">❤️</div>
+
+</div>
+
+<!-- MUSIQUE -->
+<audio id="music" loop>
+    <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+// DATE DE DÉBUT (CHANGE LA DATE)
+const startDate = new Date("2024-01-01");
+
+function updateCounter() {
+    const now = new Date();
+    const diff = now - startDate;
+
+    // const days = Math.floor(diff / (1000*60*60*24));
+    //const hours = Math.floor(diff / (1000*60*60)) % 24;
+   // const minutes = Math.floor(diff / (1000*60)) % 60; -->
+
+    document.getElementById("counter").innerHTML =
+        "Je t'aime pour toute une vie mon amour ❤️";
+}
+
+setInterval(updateCounter, 1000);
+updateCounter();
+
+// bouton surprise
+function surprise() {
+
+    document.getElementById("text").innerHTML =
+        "Basma, je t'aime plus que tout. Tu es mon cœur, mon bonheur, ma vie ,kolchi 💖";
+
+    document.getElementById("bigHeart").style.display = "block";
+
+    document.getElementById("music").play();
+}
+
+// coeurs qui tombent
+function createHeart() {
+
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (20 + Math.random()*30) + "px";
+    heart.style.animationDuration = (3 + Math.random()*5) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 8000);
+}
+
+setInterval(createHeart, 300);
+</script>
+
+</body>
+</html>
