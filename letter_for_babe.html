@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>My Letter ❤️</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
+
+/* enveloppe */
+#envelope{
+    font-size:120px;
+    cursor:pointer;
+    transition:0.3s;
+}
+#envelope:hover{
+    transform:scale(1.1);
+}
+
+/* cartes */
+.card{
+    display:none;
+    background:white;
+    color:#333;
+    padding:30px;
+    border-radius:20px;
+    width:360px;
+    text-align:center;
+    box-shadow:0 15px 40px rgba(0,0,0,0.2);
+    animation:fadeIn 1s;
+    position:relative;
+    z-index:2;
+}
+
+button{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    background:#ff4b7d;
+    color:white;
+    border-radius:20px;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#ff1f5a;
+}
+
+@keyframes fadeIn{
+    from{opacity:0;transform:translateY(20px);}
+    to{opacity:1;transform:translateY(0);}
+}
+
+/* ===== PHOTO EN FORME DE COEUR ===== */
+
+.heart-container{
+    display:flex;
+    justify-content:center;
+    margin:25px 0;
+}
+
+.heart-img{
+    width:240px;      /* avant 180px */
+    height:200px;     /* avant 180px */
+    object-fit:cover;
+    margin-left: 20px;
+    animation:heartbeat 1.5s infinite;
+    box-shadow:0 0 25px rgba(255,75,125,0.6);
+
+    clip-path: path("M110 195 C25 135, 0 75, 55 40 C85 15, 110 40, 110 60 C110 40, 135 15, 165 40 C220 75, 195 135, 110 195 Z");
+}
+
+/* battement */
+@keyframes heartbeat {
+    0% { transform: scale(1); }
+    25% { transform: scale(1.05); }
+    50% { transform: scale(1.1); }
+    75% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* coeurs animés */
+.heart{
+    position:absolute;
+    color:#ff4b7d;
+    animation:fall linear infinite;
+    z-index:1;
+}
+
+@keyframes fall{
+    from{transform:translateY(-10vh);}
+    to{transform:translateY(110vh);}
+}
+
+/* fleurs */
+.flower{
+    position:absolute;
+    font-size:22px;
+    animation:float 4s infinite alternate;
+    z-index:1;
+}
+
+@keyframes float{
+    from{transform:translateY(0);}
+    to{transform:translateY(20px);}
+}
+
+#finalMessage{
+    display:none;
+    font-size:28px;
+    color:white;
+    text-align:center;
+    animation:fadeIn 2s;
+}
+
+</style>
+</head>
+<body>
+
+<div id="envelope">💌</div>
+
+<!-- Page 1 -->
+<div class="card" id="page1">
+<h2>Bienvenue ma chérie ❤️</h2>
+<p>Il y a quelque chose de spécial pour toi...</p>
+<button onclick="nextPage(2)">Next chérie</button>
+</div>
+
+<!-- Page 2 -->
+<div class="card" id="page2">
+<h2>To My Love 💖</h2>
+<p id="dynamicText"></p>
+
+<div class="heart-container">
+    <img src="Life.jpg" class="heart-img">
+</div>
+
+<button onclick="nextPage(3)">Next chérie</button>
+</div>
+
+<!-- Page 3 -->
+<div class="card" id="page3">
+<h2>My Letter To You 💌</h2>
+<p style="text-align:left;">
+Mon amour,<br><br>
+Depuis que tu es entrée dans ma vie, tout a changé.
+Tes sourires illuminent mes journées,
+ta voix apaise mes nuits,
+et ton amour donne un sens à chaque instant.<br><br>
+Je te promets d’être toujours là,
+de te soutenir,
+de t’aimer avec sincérité et passion.<br><br>
+Tu es mon bonheur,
+mon inspiration,
+ma plus belle histoire.<br><br>
+Pour toujours ❤️
+</p>
+<p style="margin-top:20px; font-size:14px; color:#777;">
+Clique sur <b>Finish</b> mon amour… même si notre histoire ne finira jamais ❤️
+</p>
+
+<button onclick="finish()">Finish 💌</button>
+</div>
+
+<div id="finalMessage">
+Merci pour ta présence dans ma vie ❤️
+</div>
+
+<script>
+
+const envelope=document.getElementById("envelope");
+
+envelope.onclick=function(){
+    envelope.style.display="none";
+    document.getElementById("page1").style.display="block";
+};
+
+function nextPage(page){
+    document.querySelectorAll(".card").forEach(c=>c.style.display="none");
+    document.getElementById("page"+page).style.display="block";
+
+    if(page===2){
+        startDynamicText();
+        startHearts();
+        startFlowers();
+    }
+}
+
+function finish(){
+    document.querySelectorAll(".card").forEach(c=>c.style.display="none");
+    document.getElementById("finalMessage").style.display="block";
+}
+
+/* texte dynamique */
+function startDynamicText(){
+    const text="Chaque moment avec toi est un trésor précieux...";
+    let i=0;
+    document.getElementById("dynamicText").innerHTML="";
+    const interval=setInterval(()=>{
+        if(i<text.length){
+            document.getElementById("dynamicText").innerHTML+=text[i];
+            i++;
+        }else{
+            clearInterval(interval);
+        }
+    },40);
+}
+
+/* coeurs */
+function startHearts(){
+    setInterval(()=>{
+        const heart=document.createElement("div");
+        heart.className="heart";
+        heart.innerHTML="❤️";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.fontSize=(20+Math.random()*25)+"px";
+        heart.style.animationDuration=(4+Math.random()*4)+"s";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),8000);
+    },500);
+}
+
+/* fleurs */
+function startFlowers(){
+    for(let i=0;i<12;i++){
+        const flower=document.createElement("div");
+        flower.className="flower";
+        flower.innerHTML="🌸";
+        flower.style.top=Math.random()*100+"vh";
+        flower.style.left=Math.random()*100+"vw";
+        document.body.appendChild(flower);
+    }
+}
+
+</script>
+
+</body>
+</html>
